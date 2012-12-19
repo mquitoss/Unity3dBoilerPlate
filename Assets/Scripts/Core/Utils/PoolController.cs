@@ -57,7 +57,7 @@ public class PoolController : GameElement
 		}
 	}
 	
-	public void pushElement( string resourceName, string objName, GameObject o )
+	public void dumpElement( string resourceName, string objName, GameObject o )
 	{
 		if ( !elements[resourceName].ContainsKey( objName ) ) {
 			elements[resourceName][objName] = new Queue<GameObject>();
@@ -75,13 +75,13 @@ public class PoolController : GameElement
 		q.Enqueue( o );
 	}
 	
-	public void pushElement( GameObject o )
+	public void dumpElement( GameObject o )
 	{
 //		Debug.LogWarning( Time.timeSinceLevelLoad + "Push Object: "  + o.name );
 		
 		GameElement ge = o.GetComponent<GameElement>();
 		if ( ge != null ) {
-			pushElement( ge.resourceName, ge.canonicalName, o );
+			dumpElement( ge.resourceName, ge.canonicalName, o );
 		}
 		else {
 			Debug.LogError( "pushElement have not a GameElement Component" );
@@ -92,7 +92,7 @@ public class PoolController : GameElement
 	{
 		Debug.Log("*** PRELOAD: " + resourceName + " . " + objName + " | count: " + count );
 		for ( int i = 0; i < count; i++ ) {
-			pushElement( resourceName, objName, create( resourceName, objName, prefabController.getPrefabByName( resourceName, objName ) ) );
+			dumpElement( resourceName, objName, create( resourceName, objName, prefabController.getPrefabByName( resourceName, objName ) ) );
 		}
 	}
 	
