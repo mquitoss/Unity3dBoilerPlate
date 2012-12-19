@@ -29,5 +29,7 @@ public class GameElement : MonoBehaviour
     public virtual void reset()       {}
     public virtual void update()      {}
     public virtual void fixedUpdate() {}
+	
+	// TODO: it is important to document this first!
 	public virtual void cleanUp()     {}
 }
