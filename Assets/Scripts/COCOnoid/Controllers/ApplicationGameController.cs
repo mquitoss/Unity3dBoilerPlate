@@ -3,6 +3,10 @@ using System.Collections;
 
 public class ApplicationGameController : Controller
 {
+	public enum State { LOADING, RUNNING, PAUSE }
+	public State state;
+	
+	public GameController gameController;
 	
 	/**************************************************************************
 	 * Main
@@ -21,14 +25,37 @@ public class ApplicationGameController : Controller
 	
 	void Update()
 	{
-		update();
+		switch ( state ) {
+			case State.LOADING: loadingBehavior (); break;
+			case State.RUNNING: runningBehavior (); break;
+			case State.PAUSE: pauseBehavior (); break;
+		}
+			
 	}
 	
 	void FixedUpdate()
 	{
-		fixedUpdate();
 	}
 	
+	/**************************************************************************
+	 * Behavior
+	 */
+	
+	private void loadingBehavior()
+	{
+		
+	}
+	
+	private void runningBehavior()
+	{
+		gameController.update ();
+	}
+	
+	private void pauseBehavior()
+	{
+		
+	}
+
 	/**************************************************************************
 	 * Controller
 	 */
@@ -42,14 +69,6 @@ public class ApplicationGameController : Controller
 		
 	}
 	
-	public override void update ()
-	{
-	}
-	
-	public override void fixedUpdate ()
-	{
-	}
-
 	/**************************************************************************
 	 * Interface
 	 */

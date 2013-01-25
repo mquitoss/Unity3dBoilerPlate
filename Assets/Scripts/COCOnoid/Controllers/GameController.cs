@@ -4,12 +4,6 @@ using System.Collections.Generic;
 
 public class GameController : Controller
 {
-	private static GameController instance = null;
-	public static GameController Instance { get { return instance; } }
-	
-	// Test
-	public RotateTest rotateTest;
-
 	// GameElements
 	private List<GameElement> elements;
 	
@@ -19,19 +13,12 @@ public class GameController : Controller
 
 	void Awake()
 	{
-		instance = this;
+		api.applicationGameController.gameController = this;
 		elements = new List<GameElement>();
 	}
 	
 	public override void init ()
 	{
-		// add here game elements, order is rellevant
-		elements.Add( rotateTest );
-		
-		// init elements
-		for ( int i = 0; i < elements.Count; ++i ) {
-			elements[i].init();
-		}
 	}
 	
 	public override void reset ()
@@ -56,6 +43,12 @@ public class GameController : Controller
 		for ( int i = 0; i < elements.Count; ++i ) {
 			elements[i].update();
 		}
+	}
+	
+	public void addElement ( GameElement gameElement )
+	{
+		elements.Add( gameElement );
+		gameElement.init ();
 	}
 	
 	/**************************************************************************

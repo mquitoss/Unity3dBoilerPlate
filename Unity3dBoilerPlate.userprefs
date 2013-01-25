@@ -1,6 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/COCOnoid/Controllers/GameController.cs">
+    <Files>
+      <File FileName="Assets/Scripts/COCOnoid/Controllers/ApplicationGameController.cs" Line="51" Column="28" />
+      <File FileName="Assets/Scripts/Test/prefabControllerTester.cs" Line="15" Column="56" />
+      <File FileName="Assets/Scripts/Core/Utils/PoolController.cs" Line="34" Column="3" />
+      <File FileName="Assets/Scripts/Core/Utils/PrefabController.cs" Line="34" Column="3" />
+      <File FileName="Assets/Scripts/Core/Main/api.cs" Line="8" Column="1" />
+      <File FileName="Assets/Scripts/COCOnoid/Controllers/GameController.cs" Line="19" Column="55" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
