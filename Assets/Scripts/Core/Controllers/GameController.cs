@@ -6,6 +6,7 @@ public class GameController : Controller
 {
 	// GameElements
 	private List<GameElement> elements;
+	public TimelineController timelineController;
 	
 	/**************************************************************************
 	 * Main
@@ -19,6 +20,9 @@ public class GameController : Controller
 	
 	public override void init ()
 	{
+		if ( timelineController != null ) {
+			addElement ( timelineController );
+		}
 	}
 	
 	public override void reset ()
@@ -49,19 +53,5 @@ public class GameController : Controller
 	{
 		elements.Add( gameElement );
 		gameElement.init ();
-	}
-	
-	/**************************************************************************
-	 * Interface
-	 */
-	
-	public void onDie()
-	{
-		reset();
-	}
-	
-	public void onNextLevel()
-	{
-		reset();
 	}
 }

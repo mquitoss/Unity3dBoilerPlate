@@ -8,6 +8,22 @@ public class TestGameController : GameController
 
 	public override void init ()
 	{
-		addElement( rotateTest );
+		if ( rotateTest != null ) {
+			addElement( rotateTest );
+		}
+	}
+
+	/**************************************************************************
+	 * Interface
+	 */
+	
+	public void onDie()
+	{
+		reset();
+	}
+	
+	public void onNextLevel()
+	{
+		reset();
 	}
 }

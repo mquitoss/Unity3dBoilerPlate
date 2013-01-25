@@ -7,6 +7,7 @@ public class ApplicationGameController : Controller
 	public State state;
 	
 	public GameController gameController;
+	public TimelineController timelineController;
 	
 	/**************************************************************************
 	 * Main
@@ -17,8 +18,9 @@ public class ApplicationGameController : Controller
 		api.applicationGameController = this;
 	}
 	
-	void Start()
+	public override void Start()
 	{
+		base.Start ();
 		init();
 		reset();
 	}
@@ -30,7 +32,10 @@ public class ApplicationGameController : Controller
 			case State.RUNNING: runningBehavior (); break;
 			case State.PAUSE: pauseBehavior (); break;
 		}
-			
+		
+		if ( timelineController ) {
+			timelineController.update();
+		}
 	}
 	
 	void FixedUpdate()
@@ -48,7 +53,9 @@ public class ApplicationGameController : Controller
 	
 	private void runningBehavior()
 	{
-		gameController.update ();
+		if ( gameController != null ) {
+			gameController.update ();
+		}
 	}
 	
 	private void pauseBehavior()

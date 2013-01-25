@@ -2,90 +2,53 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public delegate void TimelineCallback();
-
-public class TimelineController : GameElement
+public class TimelineController : Controller
 {
-	public enum State { WAITING, RUNNING }
-	public State state = State.WAITING;
-	
-	public List<TimelineEvent> events;
-	public float currentTime = 0.0f;
-	public int currentIdx = 0;
-	public float lastDeltaTime = 0.0f;
-	
-	public event TimelineCallback onTimelineDone;
-	
-	/**************************************************************************
-	 * Main
-	 */
+	private List<Timeline> timelines;
+	private Dictionary<string,Timeline> timelinesDic;
 	
 	void Awake ()
 	{
-		events = new List<TimelineEvent>( GetComponentsInChildren<TimelineEvent>() );
-		TimelineEventComparer comp = new TimelineEventComparer();
-		events.Sort( comp );
+		timelines = new List<Timeline>( GetComponentsInChildren<Timeline>() );
+		timelinesDic = new Dictionary<string,Timeline>();
+		foreach ( Timeline timeline in timelines ) {
+			timelinesDic[timeline.gameObject.name] = timeline;
+		}
 	}
-
+	
+	public void play ( string timelineName )
+	{
+		if ( timelinesDic.ContainsKey( timelineName ) ) {
+			timelinesDic[timelineName].play ();
+		}
+		else {
+			Debug.LogError ( "Timeline '" + timelineName + "' does not exists"  );
+		}
+	}
+	
 	public override void init ()
 	{
-		state = State.WAITING;
+		base.init ();
+		foreach ( Timeline timeline in timelines ) {
+			timeline.init ();
+		}
 	}
-		
+	
 	public override void reset ()
 	{
-		state = State.WAITING;
-		currentTime = 0.0f;
-		lastDeltaTime = 0.0f;
-		currentIdx = 0;
+		base.reset ();
+		
+		foreach ( Timeline timeline in timelines ) {
+			timeline.init ();
+		}
 	}
 	
 	public override void update ()
 	{
-		switch ( state ) {
-			case State.WAITING: waitingBehavior(); break;
-			case State.RUNNING: runningBehavior(); break;
-		}
-	}
-	
-	/**************************************************************************
-	 * Behavior
-	 */
-	
-	public void waitingBehavior()
-	{
+		base.update ();
 		
-	}
-	
-	public void runningBehavior()
-	{
-		currentTime += Time.deltaTime;
-		TimelineEvent te = events[currentIdx];
-		while ( currentIdx < events.Count && events[currentIdx].time < currentTime ) {
-			events[currentIdx].performActions();
-			currentIdx++;
+		foreach ( Timeline timeline in timelines ) {
+			timeline.update ();
 		}
-		
-		if ( currentIdx >= events.Count ) {
-			onDone();
-		}
-	}
-
-	/**************************************************************************
-	 * Events
-	 */
-	
-	public void onDone()
-	{
-		state = State.WAITING;
-		
-		if ( onTimelineDone != null )
-			onTimelineDone();
-	}
-	
-	public void play()
-	{
-		reset();
-		state = State.RUNNING;
 	}
 }

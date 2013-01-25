@@ -8,8 +8,10 @@ public class AudioFXController : MonoBehaviour
 	
 	public bool mute = false;
 	
-	void Start ()
+	void Awake ()
 	{
+		api.audioFXController = this;
+		
 		AudioFX[] audios = GetComponentsInChildren<AudioFX>();
 		for ( int i = 0; i < audios.Length; i++ ) {
 			AudioFX afx = audios[i];
