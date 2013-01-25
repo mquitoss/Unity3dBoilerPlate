@@ -3,10 +3,6 @@ using System.Collections;
 
 public class ApplicationGameController : Controller
 {
-	private static ApplicationGameController instance = null;
-	public static ApplicationGameController Instance { get { return instance; } }
-
-	private GameFiniteStateMachine stateMachine;
 	
 	/**************************************************************************
 	 * Main
@@ -14,7 +10,7 @@ public class ApplicationGameController : Controller
 	
 	void Awake()
 	{
-		instance = this;
+		api.applicationGameController = this;
 	}
 	
 	void Start()
@@ -39,7 +35,6 @@ public class ApplicationGameController : Controller
 	
 	public override void init ()
 	{
-		stateMachine = new GameFiniteStateMachine( this );
 	}
 	
 	public override void reset ()
@@ -49,12 +44,10 @@ public class ApplicationGameController : Controller
 	
 	public override void update ()
 	{
-		stateMachine.execute();
 	}
 	
 	public override void fixedUpdate ()
 	{
-		stateMachine.fixedExecute();
 	}
 
 	/**************************************************************************
@@ -63,26 +56,21 @@ public class ApplicationGameController : Controller
 
 	public void onDie()
 	{
-		stateMachine.onDie();
 	}	
 
 	public void onNextLevel()
 	{
-		stateMachine.onNextLevel();
 	}	
 
 	public void onPause()
 	{
-		stateMachine.onPause();
 	}	
 
 	public void onResume()
 	{
-		stateMachine.onResume();
 	}	
 
 	public void onBackToMenu()
 	{
-		stateMachine.onBackToMenu();
 	}
 }

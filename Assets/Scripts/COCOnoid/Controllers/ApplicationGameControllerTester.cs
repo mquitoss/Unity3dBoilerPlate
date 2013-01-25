@@ -9,6 +9,7 @@ public class ApplicationGameControllerTester : MonoBehaviour
 	public KeyCode onResumeKey;
 	public KeyCode onBackToMenuKey;
 	
+	/*
 	void Update ()
 	{
 		if ( Input.GetKeyDown( onDieKey ) ) {
@@ -31,4 +32,5 @@ public class ApplicationGameControllerTester : MonoBehaviour
 			ApplicationGameController.Instance.onBackToMenu();
 		}
 	}
+	*/
 }
