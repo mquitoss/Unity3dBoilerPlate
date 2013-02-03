@@ -5,15 +5,17 @@ public delegate void TweenCallback( Tween tween );
 
 abstract public class Tween
 {
-	protected GameElement target;
+	protected GameObject target;
 	private float time;
 	private float currentTime;
 	private Ease ease;
 	private bool isDone;
+	private bool isDelayed;
+	private float delayTime;
 	
 	public event TweenCallback onTweenDone;
 	
-	public Tween ( GameElement target, float time, Ease ease )
+	public Tween ( GameObject target, float time, Ease ease )
 	{
 		this.target = target;
 		this.time = time;
@@ -22,12 +24,30 @@ abstract public class Tween
 		isDone = false;
 	}
 	
+	public Tween withDelay ( float delayTime )
+	{
+		isDelayed = true;
+		this.delayTime = delayTime;
+		
+		return this;
+	}
+	
 	public void update ()
 	{
 		if ( isDone ) return;
-			
+		if ( isDelayed ) {
+			delayTime -= Time.deltaTime;
+			if ( delayTime < 0.0f ) {
+				isDelayed = false;
+			}
+			else {
+				return;
+			}
+		}
+		
 		currentTime += Time.deltaTime;
 		if ( currentTime > time ) {
+			perform ( 1.0f );
 			onDone ();
 		}
 		else {

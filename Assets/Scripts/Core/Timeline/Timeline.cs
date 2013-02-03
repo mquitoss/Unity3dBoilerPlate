@@ -9,10 +9,9 @@ public class Timeline : GameElement
 	public enum State { WAITING, RUNNING }
 	public State state = State.WAITING;
 	
-	public List<TimelineEvent> events;
-	public float currentTime = 0.0f;
-	public int currentIdx = 0;
-	public float lastDeltaTime = 0.0f;
+	private List<TimelineEvent> events;
+	private float currentTime = 0.0f;
+	private int currentIdx = 0;
 	
 	public event TimelineCallback onTimelineDone;
 	
@@ -36,7 +35,6 @@ public class Timeline : GameElement
 	{
 		state = State.WAITING;
 		currentTime = 0.0f;
-		lastDeltaTime = 0.0f;
 		currentIdx = 0;
 	}
 	

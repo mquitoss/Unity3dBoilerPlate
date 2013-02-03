@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ActionTrigger : MonoBehaviour
 {
-	public Action[]  actions;
+	private Action[]  actions;
 	
 	public void Awake()
 	{

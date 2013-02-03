@@ -7,6 +7,7 @@ public class GameController : Controller
 	// GameElements
 	private List<GameElement> elements;
 	public TimelineController timelineController;
+	public TweenController tweenController;
 	
 	/**************************************************************************
 	 * Main
@@ -14,7 +15,6 @@ public class GameController : Controller
 
 	void Awake()
 	{
-		api.applicationGameController.gameController = this;
 		elements = new List<GameElement>();
 	}
 	
@@ -22,6 +22,10 @@ public class GameController : Controller
 	{
 		if ( timelineController != null ) {
 			addElement ( timelineController );
+		}
+
+		if ( tweenController != null ) {
+			addElement ( tweenController );
 		}
 	}
 	

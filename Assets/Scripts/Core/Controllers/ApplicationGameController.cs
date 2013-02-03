@@ -8,6 +8,7 @@ public class ApplicationGameController : Controller
 	
 	public GameController gameController;
 	public TimelineController timelineController;
+	public TweenController tweenController;
 	
 	/**************************************************************************
 	 * Main
@@ -33,9 +34,8 @@ public class ApplicationGameController : Controller
 			case State.PAUSE: pauseBehavior (); break;
 		}
 		
-		if ( timelineController ) {
-			timelineController.update();
-		}
+		if ( timelineController != null ) timelineController.update ();
+		if ( tweenController != null ) tweenController.update ();
 	}
 	
 	void FixedUpdate()
@@ -69,34 +69,32 @@ public class ApplicationGameController : Controller
 	
 	public override void init ()
 	{
+		if ( gameController != null ) gameController.init ();
+		if ( timelineController != null ) timelineController.init ();
+		if ( tweenController != null ) tweenController.init ();
 	}
 	
 	public override void reset ()
 	{
+		state = State.LOADING;
 		
+		if ( timelineController != null ) timelineController.reset ();
+		if ( tweenController != null ) tweenController.reset ();
 	}
 	
 	/**************************************************************************
 	 * Interface
 	 */
-
-	public void onDie()
+	
+	public void onPlay ()
 	{
-	}	
-
-	public void onNextLevel()
+		state = State.RUNNING;
+		if ( gameController != null ) gameController.reset ();
+	}
+	
+	public void onGameOver()
 	{
-	}	
-
-	public void onPause()
-	{
-	}	
-
-	public void onResume()
-	{
-	}	
-
-	public void onBackToMenu()
-	{
+		state = State.PAUSE;
+		api.applicationTimelineController.play ( "TimelineGameOver" );
 	}
 }
