@@ -11,7 +11,17 @@ public class TweenMov : Tween
 		this.fromPosition = fromPosition;
 		this.toPosition = toPosition;
 	}
+
+	public static TweenMov moveFromOriginTo ( GameObject target, float time, Ease ease, Vector3 toPosition )
+	{
+		return new TweenMov ( target, time, ease, target.transform.position, toPosition );
+	}
 	
+	public static TweenMov moveToOriginFrom ( GameObject target, float time, Ease ease, Vector3 fromPosition )
+	{
+		return new TweenMov ( target, time, ease, fromPosition, target.transform.position );
+	}
+
 	protected override void perform ( float t )
 	{
 		target.transform.position = fromPosition * ( 1.0f - t ) + toPosition * t;

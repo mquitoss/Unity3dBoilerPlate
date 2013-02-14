@@ -32,6 +32,13 @@ abstract public class Tween
 		return this;
 	}
 	
+	public Tween withOnDoneCallback ( TweenCallback callback )
+	{
+		onTweenDone += callback;
+		
+		return this;
+	}
+	
 	public void update ()
 	{
 		if ( isDone ) return;
