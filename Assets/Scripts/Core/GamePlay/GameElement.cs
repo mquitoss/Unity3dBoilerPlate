@@ -18,9 +18,9 @@ public class GameElement : MonoBehaviour
     public virtual void Start()
     {
         transform   = gameObject.transform;
-        audio       = gameObject.audio;
-        animation   = gameObject.animation;
-        rigidBody   = gameObject.rigidbody;
+        audio       = gameObject.GetComponent<AudioSource>();
+        animation   = gameObject.GetComponent<Animation>();
+        rigidBody   = gameObject.GetComponent<Rigidbody>();
     }
 
 	// TODO: crear una bitmask para updatear solo en determinados estados del GameController

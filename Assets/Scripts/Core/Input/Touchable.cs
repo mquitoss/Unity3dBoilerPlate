@@ -32,7 +32,7 @@ public abstract class Touchable : ActionTrigger
 
 	public void Start()
 	{
-		buttonCollider = collider;
+		buttonCollider = GetComponent<Collider>();
 		if ( buttonCollider == null ) Debug.LogError( "Touchable <" + gameObject.name + "> collider is null" );
 		
 		setWaitingTouchState();
@@ -99,7 +99,7 @@ public abstract class Touchable : ActionTrigger
 	{
 		Ray ray = cam.ScreenPointToRay ( pos );
 		RaycastHit hit = new RaycastHit();
-		if ( collider.Raycast ( ray, out hit, RAY_CAST_DISTANCE ) ) {
+		if ( GetComponent<Collider>().Raycast ( ray, out hit, RAY_CAST_DISTANCE ) ) {
 			onTouch( hit.point );
 		}
 	}	

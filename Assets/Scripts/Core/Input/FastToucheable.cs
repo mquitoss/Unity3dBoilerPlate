@@ -27,7 +27,7 @@ public abstract class FastToucheable : ActionTrigger
 	{
 		Ray ray = Camera.main.ScreenPointToRay ( pos );
 		RaycastHit hit = new RaycastHit();
-		if ( collider.Raycast ( ray, out hit, RAY_CAST_DISTANCE ) )
+		if ( GetComponent<Collider>().Raycast ( ray, out hit, RAY_CAST_DISTANCE ) )
 		{
 			onTouch();
 		}

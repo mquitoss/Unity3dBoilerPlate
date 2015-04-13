@@ -111,10 +111,10 @@ public class UnityTween : MonoBehaviour
                 else if (tween.tweenType == TweenType.TweenAlpha)
                 {
                     TweenAlphaObject tweenAlpha = tween as TweenAlphaObject;
-                    if (guiTexture != null)
-                        tweenAlpha.startValue = guiTexture.color.a;
+                    if (GetComponent<GUITexture>() != null)
+                        tweenAlpha.startValue = GetComponent<GUITexture>().color.a;
                     else
-                        tweenAlpha.startValue = this.renderer.material.color.a;
+                        tweenAlpha.startValue = this.GetComponent<Renderer>().material.color.a;
                 }
 
                 this.ClearTweensSameType(tween);
@@ -220,33 +220,33 @@ public class UnityTween : MonoBehaviour
         float redGreen;
         float redBlue;
 
-        if (guiTexture != null)
+        if (GetComponent<GUITexture>() != null)
         {
-            redColor = guiTexture.color.r;
-            redGreen = guiTexture.color.g;
-            redBlue = guiTexture.color.b;
+            redColor = GetComponent<GUITexture>().color.r;
+            redGreen = GetComponent<GUITexture>().color.g;
+            redBlue = GetComponent<GUITexture>().color.b;
 
-            guiTexture.color = new Color(redColor, redGreen, redBlue, alpha);
+            GetComponent<GUITexture>().color = new Color(redColor, redGreen, redBlue, alpha);
 
             if (duration == 0)
             {
                 this.EndTween(tween);
-                guiTexture.color = new Color(redColor, redGreen, redBlue, finish);
+                GetComponent<GUITexture>().color = new Color(redColor, redGreen, redBlue, finish);
                 return;
             }
         }
         else
         {
-            redColor = this.renderer.material.color.r;
-            redGreen = this.renderer.material.color.g;
-            redBlue = this.renderer.material.color.b;
+            redColor = this.GetComponent<Renderer>().material.color.r;
+            redGreen = this.GetComponent<Renderer>().material.color.g;
+            redBlue = this.GetComponent<Renderer>().material.color.b;
 
-            this.renderer.material.color = new Color(redColor, redGreen, redBlue, alpha);
+            this.GetComponent<Renderer>().material.color = new Color(redColor, redGreen, redBlue, alpha);
 
             if (duration == 0)
             {
                 this.EndTween(tween);
-                this.renderer.material.color = new Color(redColor, redGreen, redBlue, finish);
+                this.GetComponent<Renderer>().material.color = new Color(redColor, redGreen, redBlue, finish);
                 return;
             }
         }
